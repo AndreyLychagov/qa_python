@@ -33,10 +33,11 @@ def test_set_book_genre_not_added(collector):
 
 def test_get_books_with_specific_genre(collector):
     collector.add_new_book("Над пропостью во ржи")
-    collector.add_new_book("Улитка на склоне")
+    collector.add_new_book("Шерлок Холмс")
     collector.set_book_genre("Над пропостью во ржи", "Фантастика")
-    collector.set_book_genre("Улитка на склоне", "Фантастика")
-    assert sorted(collector.get_books_with_specific_genre("Фантастика")) == sorted(["Над пропостью во ржи", "Улитка на склоне"])
+    collector.set_book_genre("Шерлок Холмс", "Детективы")
+    assert sorted(collector.get_books_with_specific_genre("Фантастика")) == ["Над пропостью во ржи"]
+    assert sorted(collector.get_books_with_specific_genre("Детективы")) == ["Шерлок Холмс"]
 
 def test_get_books_for_children(collector):
     collector.add_new_book("Волшебник изумрудного города")
@@ -54,8 +55,9 @@ def test_add_book_in_favorites_not_in_books_genre(collector):
     collector.add_book_in_favorites("Случайная книга")
     assert "Случайная книга" not in collector.get_list_of_favorites_books()
 
-def test_delete_book_from_favorites(collector):
+def test_get_list_of_favorites_books(collector):
     collector.add_new_book("Мастер и Маргарита")
+    collector.add_new_book("1984")
     collector.add_book_in_favorites("Мастер и Маргарита")
-    collector.delete_book_from_favorites("Мастер и Маргарита")
-    assert "Мастер и Маргарита" not in collector.get_list_of_favorites_books()
+    collector.add_book_in_favorites("1984")
+    assert sorted(collector.get_list_of_favorites_books()) == sorted(["Мастер и Маргарита", "1984"])
