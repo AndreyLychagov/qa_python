@@ -61,3 +61,11 @@ def test_get_list_of_favorites_books(collector):
     collector.add_book_in_favorites("Мастер и Маргарита")
     collector.add_book_in_favorites("1984")
     assert sorted(collector.get_list_of_favorites_books()) == sorted(["Мастер и Маргарита", "1984"])
+
+
+def test_delete_book_from_favorites(collector):
+    collector.add_new_book("Мастер и Маргарита")
+    collector.add_book_in_favorites("Мастер и Маргарита")
+    assert "Мастер и Маргарита" in collector.get_list_of_favorites_books()
+    collector.delete_book_from_favorites("Мастер и Маргарита")
+    assert "Мастер и Маргарита" not in collector.get_list_of_favorites_books()
